@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizHive - Interactive Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f2;
+    color: #263b32;
+}
+
+/* Navbar */
+.navbar {
+    background: #203c32;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h2 {
+    font-size: 25px;
+}
+
+.navbar span {
+    color: #8bd5a8;
+}
+
+.navbar p {
+    font-size: 14px;
+}
+
+/* Main Container */
+.container {
+    width: 85%;
+    max-width: 900px;
+    margin: 35px auto;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+h3 {
+    color: #203c32;
+    margin-bottom: 15px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* Form */
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    background: #203c32;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    margin: 6px 4px 6px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #4d8068;
+}
+
+.output {
+    background: #eaf3ed;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 7px;
+    color: #203c32;
+    min-height: 40px;
+}
+
+.task {
+    background: #f1f5f2;
+    padding: 12px;
+    margin: 8px 0;
+    border-left: 4px solid #4d8068;
+    border-radius: 5px;
+}
+
+footer {
+    background: #203c32;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 40px;
+}
+
+@media(max-width:600px) {
+    .container {
+        width: 92%;
+    }
+
+    .navbar {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+    <h2>Biz<span>Hive</span></h2>
+    <p>Business Management Dashboard</p>
+</header>
+
+<main class="container">
+
+    <!-- DOM Elements using IDs -->
+    <section class="card">
+        <h3>1. DOM Elements Using IDs</h3>
+
+        <p id="welcomeText">
+            Welcome to BizHive Business Dashboard!
+        </p>
+
+        <button onclick="changeText()">
+            Change Text
+        </button>
+
+        <button onclick="changeColor()">
+            Change Color
+        </button>
+    </section>
+
+    <!-- querySelector -->
+    <section class="card">
+        <h3>2. Using querySelector()</h3>
+
+        <p class="description">
+            Manage your business activities efficiently.
+        </p>
+
+        <button onclick="updateDescription()">
+            Update Description
+        </button>
+    </section>
+
+    <!-- Interactive Form -->
+    <section class="card">
+        <h3>3. Interactive Employee Form</h3>
+
+        <form id="employeeForm" onsubmit="submitForm(event)">
+
+            <input type="text" id="employeeName"
+            placeholder="Enter Employee Name" required>
+
+            <input type="email" id="employeeEmail"
+            placeholder="Enter Email Address" required>
+
+            <select id="department" required>
+                <option value="">Select Department</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+                <option value="Development">Development</option>
+                <option value="Human Resources">Human Resources</option>
+            </select>
+
+            <textarea id="message"
+            placeholder="Enter Employee Details"></textarea>
+
+            <button type="submit">Submit Details</button>
+            <button type="reset">Reset Form</button>
+
+        </form>
+
+        <div class="output" id="formOutput">
+            Employee details will appear here.
+        </div>
+    </section>
+
+    <!-- setTimeout and clearTimeout -->
+    <section class="card">
+        <h3>4. setTimeout() and clearTimeout()</h3>
+
+        <p id="timeoutMessage">
+            Click Start to schedule a notification.
+        </p>
+
+        <button onclick="startTimeout()">
+            Start Timeout
+        </button>
+
+        <button onclick="stopTimeout()">
+            Clear Timeout
+        </button>
+    </section>
+
+    <!-- setInterval and clearInterval -->
+    <section class="card">
+        <h3>5. setInterval() and clearInterval()</h3>
+
+        <h2 id="counter">0</h2>
+
+        <p>Business Activity Timer</p>
+
+        <button onclick="startInterval()">
+            Start Timer
+        </button>
+
+        <button onclick="stopInterval()">
+            Stop Timer
+        </button>
+
+        <button onclick="resetCounter()">
+            Reset Timer
+        </button>
+    </section>
+
+    <!-- Task Management -->
+    <section class="card">
+        <h3>6. Business Task Management</h3>
+
+        <input type="text" id="taskInput"
+        placeholder="Enter a new business task">
+
+        <button onclick="addTask()">
+            Add Task
+        </button>
+
+        <div id="taskList"></div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 BizHive Business Dashboard | All Rights Reserved</p>
+</footer>
+
+<script>
+
+// 1. DOM Elements Using IDs
+
+function changeText() {
+    document.getElementById("welcomeText").innerText =
+    "Welcome! Your business dashboard is ready.";
+}
+
+function changeColor() {
+    document.getElementById("welcomeText").style.color =
+    "#4d8068";
+}
+
+// 2. querySelector()
+
+function updateDescription() {
+    document.querySelector(".description").innerText =
+    "BizHive helps you manage business activities effectively.";
+}
+
+// 3. Interactive Form
+
+function submitForm(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("employeeName").value;
+    let email = document.getElementById("employeeEmail").value;
+    let department = document.getElementById("department").value;
+    let message = document.getElementById("message").value;
+
+    document.getElementById("formOutput").innerHTML =
+    "<strong>Employee Details Submitted!</strong><br>" +
+    "Name: " + name + "<br>" +
+    "Email: " + email + "<br>" +
+    "Department: " + department + "<br>" +
+    "Details: " + message;
+
+}
+
+// 4. setTimeout() and clearTimeout()
+
+let timeoutID;
+
+function startTimeout() {
+
+    clearTimeout(timeoutID);
+
+    document.getElementById("timeoutMessage").innerText =
+    "Notification scheduled for 3 seconds...";
+
+    timeoutID = setTimeout(function() {
+
+        document.getElementById("timeoutMessage").innerText =
+        "Your business notification is ready!";
+
+    }, 3000);
+}
+
+function stopTimeout() {
+
+    clearTimeout(timeoutID);
+
+    document.getElementById("timeoutMessage").innerText =
+    "Scheduled notification cancelled.";
+}
+
+// 5. setInterval() and clearInterval()
+
+let intervalID;
+let count = 0;
+
+function startInterval() {
+
+    if (intervalID !== undefined) {
+        return;
+    }
+
+    intervalID = setInterval(function() {
+
+        count++;
+
+        document.getElementById("counter").innerText = count;
+
+    }, 1000);
+}
+
+function stopInterval() {
+
+    clearInterval(intervalID);
+    intervalID = undefined;
+}
+
+function resetCounter() {
+
+    stopInterval();
+
+    count = 0;
+
+    document.getElementById("counter").innerText = count;
+}
+
+// 6. Business Task Management
+
+function addTask() {
+
+    let task = document.getElementById("taskInput").value.trim();
+
+    if (task === "") {
+        alert("Please enter a business task!");
+        return;
+    }
+
+    let taskItem = document.createElement("div");
+
+    taskItem.className = "task";
+
+    taskItem.innerText = task;
+
+    document.getElementById("taskList").appendChild(taskItem);
+
+    document.getElementById("taskInput").value = "";
+
+}
+
+</script>
+
+</body>
+</html>
